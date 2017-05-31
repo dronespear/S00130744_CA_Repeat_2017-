@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <span id="serverTime"></span>
+    <!--The below three scripts are the mandatory requirements for using a html page as a signalr client-->
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.2.min.js"></script> 
+    <script src="/signalr/hubs/"></script>
+
+    <!--The below block of code then uses signalr to generate content on the html page-->
+    <script>
+        //uncomment below to test code is being executed on hub start.
+        //$.connection.hub.start().done(function () {
+
+        //    alert("Hello");
+
+        //});
+
+        //The first function below calls the broadcastservertime method from the hub once a connection is established.
+        $.connection.hub.start().done(function () {
+
+            $.connection.myHub.server.welcomeMessage();
+        });
+
+
+        //The following code then receives the message broadcast from the hub and displays its contents in the span element.
+
+        $.connection.myHub.client.welcomeMessage = function (message) {
+
+            $("#serverTime").text(message);
+        }
+
+        
+    </script>
+</body>
+</html>
